@@ -10,3 +10,54 @@
 .box-table {
   padding-top: 112px;
 }
+
+.fp-container {
+  position: fixed;
+  width: 30%;
+  height: 30%;
+  top: 0;
+  left: 0;
+}
+
+.fp-container .fp-loader {
+  top: 340px;
+  left: 620px;
+  z-index: 100;
+  position: absolute;
+}
+
+.MuiPagination-root {
+  width: 240px !important;
+  /* //     height: "40px",
+//     left: "957px",
+//     top: "880px", */
+}
+
+.MuiPaginationItem-root {
+  margin: 0 !important;
+  height: 40px !important;
+  font-size: 12px !important;
+}
+.MuiTableFooter-root {
+  position: absolute;
+  width: 240px;
+  height: 40px;
+  left: 957px;
+  top: 880px;
+}
+
+.MuiTableCell-root {
+  font-family: Inter !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-size: 12px !important;
+  line-height: 12px !important;
+}
+
+.MuiTable-root {
+  height: 100%;
+}
+
+.MuiTableCell-head {
+  color: #4b5563;
+}

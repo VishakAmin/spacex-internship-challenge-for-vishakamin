@@ -3,17 +3,28 @@ import { Box, Container } from '@material-ui/core';
 import Logo from './img/logo.png'
 import './App.css';
 import BasicTable from './Compenent/BasicTable';
+import { usePagination } from '@material-ui/lab/Pagination';
+import useFullPageLoader from './hooks/usePageLoader';
+
 
 function App() {
   const [launches, setLaunches] = useState([]);
+  const [loader, showloader, hideLoader] = useFullPageLoader()
 
   useEffect(() => {
-    fetch("https://api.spacexdata.com/v3/launches")
-      .then(response => response.json())
-      .then(data => {
-        setLaunches(data)
-      })
-  })
+
+    const getData = () => {
+      showloader()
+      fetch("https://api.spacexdata.com/v3/launches")
+        .then(response => response.json())
+        .then(data => {
+          hideLoader()
+          setLaunches(data)
+        })
+
+    }
+    getData()
+  }, [])
 
   //console.log(launches);
   return (
@@ -30,7 +41,9 @@ function App() {
 
 
       <Container style={{ paddingTop: "20px" }}>
-        <BasicTable launch={launches} />
+
+        <BasicTable launch={launches} loader={loader} />
+
       </Container>
 
 
