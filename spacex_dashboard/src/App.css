@@ -58,6 +58,17 @@
   height: 100%;
 }
 
+.MuiBox-root-8 {
+  padding-right: 243px !important;
+}
 .MuiTableCell-head {
   color: #4b5563;
+}
+
+.MuiButton-label {
+  position: static !important;
+  width: 34px !important;
+  height: 13px !important;
+  left: 12px !important;
+  top: 4px !important;
 }
