@@ -72,3 +72,7 @@
   left: 12px !important;
   top: 4px !important;
 }
+
+.MuiDialog-paper {
+  padding: 32px;
+}
