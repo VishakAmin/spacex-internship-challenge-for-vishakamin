@@ -72,6 +72,22 @@ const useStyles = makeStyles({
         background: "#FDE2E1",
         textTransform: "none"
     },
+    upcoming: {
+        padding: "4px 12px",
+        borderRadius: "20px",
+        width: "58px",
+        height: "21px",
+        fontStyle: "normal",
+        fontFamily: "Helvetica Neue",
+        fontWeight: "500",
+        fontSize: "12px",
+        lineHeight: "13px",
+        textAlign: "center",
+        color: "#92400F",
+        background: "#FEF3C7",
+        textTransform: "none"
+
+    }
 });
 
 
@@ -153,15 +169,29 @@ const BasicTable = ({ launch, loader }) => {
                                         >
                                             Success
                                         </Button>
-                                            :
-                                            <Button
-                                                className={classes.failed}
-                                                variant="outlined"
-                                                color="secondary"
-                                                onClick={(e) => updateDetails(e, row)}
-                                            >
-                                                Failed
-                                            </Button>
+
+                                            : row.upcoming === false ?
+                                                <Button
+                                                    className={classes.failed}
+                                                    variant="outlined"
+                                                    onClick={(e) => updateDetails(e, row)}
+                                                >
+                                                    Failed
+                               </Button>
+                                                :
+
+                                                <Button
+                                                    className={classes.upcoming}
+                                                    variant="outlined"
+
+                                                    onClick={(e) => updateDetails(e, row)}
+                                                >
+                                                    Upcomimg
+                                </Button>
+
+
+
+
 
                                         }
 
