@@ -13,7 +13,9 @@ import Grid from '@material-ui/core/Grid';
 
 import Avatar from '@material-ui/core/Avatar';
 import { Typography } from '@material-ui/core';
-
+import nasa from '../img/nasa.png'
+import wiki from '../img/wiki.png'
+import youtube from '../img/youtube.png'
 
 const Transition = React.forwardRef(function Transition(props, ref) {
 
@@ -45,8 +47,7 @@ const useStyles = makeStyles({
         fontSize: "18px",
         lineHeight: "18px",
         width: "54px",
-        height: "18px",
-        paddingRight: "362px"
+        height: "18px"
     },
     deatils: {
         position: "static",
@@ -108,25 +109,38 @@ const MyModal = (
                     >
                         <CloseIcon />
                     </IconButton> */}
-                        <Grid item>
-                            <Typography className={classes.heading}> {row.mission_name}</Typography>
 
-                            <Button>
-                                Success
-                            </Button>
-                            <Grid>
-                                Flacon 9
+                        <Grid item >
+                            <Grid direction="row" >
+                                <Typography className={classes.heading}> {row.mission_name}</Typography>
+
+                                <Grid item >
+                                    <Button>
+                                        Success
+                                        </Button>
+                                </Grid>
                             </Grid>
 
-                            <Grid container direction="row">
-                                <Grid>
-                                    1
+                            <Grid>
+                                <Typography style={{ fontFamily: "Inter", fontSize: "12px" }}> {row.rocket.rocket_name}</Typography>
+                            </Grid>
+
+
+                            <Grid container direction="row"  >
+                                <Grid style={{ paddingRight: "8px" }}>
+                                    <a href={row.links.article_link}>
+                                        <img src={nasa} alt="nasa" />
+                                    </a>
                                 </Grid>
-                                <Grid>
-                                    2
+                                <Grid style={{ paddingRight: "8px" }}>
+                                    <a href={row.links.wikipedia}>
+                                        <img src={wiki} alt="wiki" />
+                                    </a>
                                 </Grid>
-                                <Grid>
-                                    3
+                                <Grid style={{ paddingRight: "8px" }}>
+                                    <a href={row.links.video_link}>
+                                        <img src={youtube} alt="youtube" />
+                                    </a>
                                 </Grid>
                             </Grid>
 
@@ -137,7 +151,6 @@ const MyModal = (
                     <Grid>
                         <Typography className={classes.deatils}>
                             {row.details}
-                            <a href={row.links.wikipedia}>Wikipedia</a>
                         </Typography>
                     </Grid>
 
