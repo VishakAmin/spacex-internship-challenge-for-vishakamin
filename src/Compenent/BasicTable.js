@@ -5,7 +5,6 @@ import Box from '@material-ui/core/Box';
 import TableBody from '@material-ui/core/TableBody';
 import TableFooter from '@material-ui/core/TableFooter';
 import Button from '@material-ui/core/Button';
-import { createMuiTheme } from '@material-ui/core/styles';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
@@ -13,12 +12,8 @@ import Paper from '@material-ui/core/Paper';
 import Pagination from '@material-ui/lab/Pagination';
 import MuiTableCell from "@material-ui/core/TableCell";
 import moment from 'moment'
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
 import MyModal from './MyModal'
+import { Typography } from '@material-ui/core';
 
 
 const TableCell = withStyles({
@@ -29,19 +24,14 @@ const TableCell = withStyles({
 
 
 const useStyles = makeStyles({
-
-
     box: {
         width: "952px",
         height: "676px",
-
     },
-
     table: {
         maxWidth: 952,
         maxHeight: 676
     },
-
     success: {
         padding: "4px 12px",
         borderRadius: "20px",
@@ -91,28 +81,32 @@ const useStyles = makeStyles({
 });
 
 
-const BasicTable = ({ launch, loader }) => {
-    const classes = useStyles();
+const BasicTable = ({ launch, loader, Loading }) => {
 
+    const classes = useStyles();
     const [page, setPage] = useState(1);
     const [openDialog, setOpenDialog] = useState(false);
     const [rowToUpdate, setRowToUpdate] = useState([]);
-
 
     const rowsPerPage = 12;
 
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, launch.length - (page - 1) * rowsPerPage);
 
+    var totalpages = parseInt(launch.length / rowsPerPage)
+
+    const yo = launch.length % rowsPerPage > 0 ? totalpages + 1 : totalpages
+
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
         console.log(page)
-
-
     };
+
+
+
     const handleOpenDialog = () => {
         setOpenDialog(true);
-
     };
+
     const handleCloseDialog = () => {
         setOpenDialog(false);
     };
@@ -122,10 +116,9 @@ const BasicTable = ({ launch, loader }) => {
         setRowToUpdate(row);
     };
 
+    console.log(Loading, launch.length)
 
-    console.log(rowToUpdate)
     return (
-
         <Box className={classes.box} pt="112px" pl="245px" pr="245px" pb="164px">
             <MyModal
                 open_d={openDialog}
@@ -147,64 +140,74 @@ const BasicTable = ({ launch, loader }) => {
                     </TableHead>
 
                     <TableBody>
-                        {loader}
-                        {launch ? console.log("Data Exist") : console.log("Data Not Exist")}
 
-                        {
-                            launch
-                                .slice((page - 1) * rowsPerPage, (page - 1) * rowsPerPage + rowsPerPage)
-                                .map((row, index) => (
-                                    <TableRow key={index}>
-                                        <TableCell component="th" scope="row" align="center">
-                                            {String((page - 1) * 12 + index + 1).padStart(2, "0")}
 
-                                            {/* {row.flight_number} */}
-                                        </TableCell>
-                                        <TableCell align="left">{moment(row.launch_date_utc).format('DD  MMMM YYYY HH:mm')}</TableCell>
-                                        <TableCell align="left">{row.launch_site.site_name}</TableCell>
-                                        <TableCell align="left">{row.mission_name}</TableCell>
-                                        <TableCell align="left">{row.rocket.second_stage.payloads[0].orbit}</TableCell>
-                                        <TableCell align="left">
-                                            {row.launch_success ?
-                                                <Button
-                                                    className={classes.success}
-                                                    variant="outlined"
-                                                    onClick={(e) => updateDetails(e, row)}
-                                                >
-                                                    Success
+                        {Loading ?
+                            <>
+                                {loader}
+                            </>
+                            :
+                            <>
+                                {launch.length <= 0 ?
+                                    <Typography >
+                                        No results found for the specified filter.
+                                    </Typography>
+                                    :
+                                    <>
+                                        {launch.slice((page - 1) * rowsPerPage, (page - 1) * rowsPerPage + rowsPerPage)
+                                            .map((row, index) => (
+                                                <TableRow key={index}>
+                                                    <TableCell component="th" scope="row" align="center">
+                                                        {String((page - 1) * 12 + index + 1).padStart(2, "0")}
+                                                    </TableCell>
+                                                    <TableCell align="left">{moment(row.launch_date_utc).format('DD  MMMM YYYY HH:mm')}</TableCell>
+                                                    <TableCell align="left">{row.launch_site.site_name}</TableCell>
+                                                    <TableCell align="left">{row.mission_name}</TableCell>
+                                                    <TableCell align="left">{row.rocket.second_stage.payloads[0].orbit}</TableCell>
+                                                    <TableCell align="left">
+                                                        {row.launch_success ?
+                                                            <Button
+                                                                className={classes.success}
+                                                                variant="outlined"
+                                                                onClick={(e) => updateDetails(e, row)}
+                                                            >
+                                                                Success
                                             </Button>
-                                                : row.upcoming === false ?
-                                                    <Button
-                                                        className={classes.failed}
-                                                        variant="outlined"
-                                                        onClick={(e) => updateDetails(e, row)}
-                                                    >
-                                                        Failed
+                                                            : row.upcoming === false ?
+                                                                <Button
+                                                                    className={classes.failed}
+                                                                    variant="outlined"
+                                                                    onClick={(e) => updateDetails(e, row)}
+                                                                >
+                                                                    Failed
                                                </Button>
-                                                    :
-                                                    <Button
-                                                        className={classes.upcoming}
-                                                        variant="outlined"
-                                                        onClick={(e) => updateDetails(e, row)}
-                                                    >
-                                                        Upcomimg
+                                                                :
+                                                                <Button
+                                                                    className={classes.upcoming}
+                                                                    variant="outlined"
+                                                                    onClick={(e) => updateDetails(e, row)}
+                                                                >
+                                                                    Upcomimg
                                                 </Button>
-                                            }
+                                                        }
 
-                                        </TableCell>
-                                        <TableCell align="left">{row.rocket.rocket_name}</TableCell>
-                                    </TableRow>
+                                                    </TableCell>
+                                                    <TableCell align="left">{row.rocket.rocket_name}</TableCell>
+                                                </TableRow>
 
+                                            ))
 
-
-                                ))
-
+                                        }
+                                    </>
+                                }
+                            </>
                         }
                         {emptyRows > 0 && (
                             <TableRow style={{ height: 53 * emptyRows }}>
                                 <TableCell colSpan={6} />
                             </TableRow>
                         )}
+
 
                     </TableBody>
 
@@ -219,14 +222,14 @@ const BasicTable = ({ launch, loader }) => {
                     variant="outlined"
                     shape="rounded"
                     component="div"
-                    count={10}
+                    count={yo}
                     rowsPerPage={rowsPerPage}
                     page={page}
                     defaultPage={1}
                     onChange={handleChangePage}
                 />
             </TableFooter>
-        </Box>
+        </Box >
     );
 }
 export default BasicTable;
