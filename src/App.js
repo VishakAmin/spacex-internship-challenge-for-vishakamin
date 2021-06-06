@@ -4,33 +4,25 @@ import Logo from './img/logo.png'
 import './App.css';
 import BasicTable from './Compenent/BasicTable';
 import useFullPageLoader from './hooks/usePageLoader';
-import Button from '@material-ui/core/Button';
-import ButtonBase from '@material-ui/core/ButtonBase';
-import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Grid from '@material-ui/core/Grid'
 import { makeStyles } from '@material-ui/core/styles';
 import Select from '@material-ui/core/Select';
 import filter from "./img/filter.png";
-import down from "./img/down.png";
 
 const useStyles = makeStyles({
 
   filter: {
     position: "absolute",
-    // width: "150px",
-    // height: "16px",
     left: "1056px",
     top: "120px",
+  },
+
+  menu: {
     fontFamily: "Helvetica Neue",
     fontStyle: "normal",
-    fontWeight: "500",
+    fontWeight: "normal",
     fontSize: "16px",
-    lineHeight: "16px",
-    textTransform: "none"
-  },
-  menu: {
-
   }
 
 })
@@ -39,17 +31,12 @@ const useStyles = makeStyles({
 function App() {
   const [launches, setLaunches] = useState([]);
   const [launch_filter, setLaunch_filter] = useState([]);
-
   const [loader, showloader, hideLoader] = useFullPageLoader()
-
   const [filters, setFilters] = useState([]);
-
   const classes = useStyles();
 
-  console.log("select", filters)
+  //Api call
   useEffect(() => {
-
-
     const getData = () => {
       showloader()
       fetch("https://api.spacexdata.com/v3/launches")
@@ -97,10 +84,10 @@ function App() {
             displayEmpty
             disableUnderline
           >
-            <MenuItem value="">All Launches</MenuItem>
-            <MenuItem value="success">Successful Launches</MenuItem>
-            <MenuItem value="failure">Failure Launches</MenuItem>
-            <MenuItem value="upcoming">Upcoming Launches</MenuItem>
+            <MenuItem className={classes.menu} value="">All Launches</MenuItem>
+            <MenuItem className={classes.menu} value="success">Successful Launches</MenuItem>
+            <MenuItem className={classes.menu} value="failure">Failure Launches</MenuItem>
+            <MenuItem className={classes.menu} value="upcoming">Upcoming Launches</MenuItem>
           </Select>
         </Grid>
       </Grid>
