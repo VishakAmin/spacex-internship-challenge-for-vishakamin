@@ -163,15 +163,14 @@ const BasicTable = ({ launch, loader }) => {
                                     <TableCell align="left">{row.mission_name}</TableCell>
                                     <TableCell align="left">{row.rocket.second_stage.payloads[0].orbit}</TableCell>
                                     <TableCell align="left">
-                                        {row.launch_success ? <Button
-                                            className={classes.success}
-                                            variant="outlined"
-
-                                            onClick={(e) => updateDetails(e, row)}
-                                        >
-                                            Success
-                                        </Button>
-
+                                        {row.launch_success ?
+                                            <Button
+                                                className={classes.success}
+                                                variant="outlined"
+                                                onClick={(e) => updateDetails(e, row)}
+                                            >
+                                                Success
+                                            </Button>
                                             : row.upcoming === false ?
                                                 <Button
                                                     className={classes.failed}
@@ -179,22 +178,15 @@ const BasicTable = ({ launch, loader }) => {
                                                     onClick={(e) => updateDetails(e, row)}
                                                 >
                                                     Failed
-                               </Button>
+                                               </Button>
                                                 :
-
                                                 <Button
                                                     className={classes.upcoming}
                                                     variant="outlined"
-
                                                     onClick={(e) => updateDetails(e, row)}
                                                 >
                                                     Upcomimg
-                                </Button>
-
-
-
-
-
+                                                </Button>
                                         }
 
                                     </TableCell>
