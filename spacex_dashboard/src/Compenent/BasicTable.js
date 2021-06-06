@@ -147,29 +147,30 @@ const BasicTable = ({ launch, loader }) => {
                     </TableHead>
 
                     <TableBody>
-
+                        {loader}
                         {/* https://codesandbox.io/s/jzbml?file=/src/MyDialog.js */}
                         {launch
                             .slice((page - 1) * rowsPerPage, (page - 1) * rowsPerPage + rowsPerPage)
                             .map((row, index) => (
                                 <TableRow key={index}>
                                     <TableCell component="th" scope="row" align="center">
-                                        {row.flight_number}
+                                        {String((page - 1) * 12 + index + 1).padStart(2, "0")}
+
+                                        {/* {row.flight_number} */}
                                     </TableCell>
                                     <TableCell align="left">{moment(row.launch_date_utc).format('DD  MMMM YYYY HH:mm')}</TableCell>
                                     <TableCell align="left">{row.launch_site.site_name}</TableCell>
                                     <TableCell align="left">{row.mission_name}</TableCell>
                                     <TableCell align="left">{row.rocket.second_stage.payloads[0].orbit}</TableCell>
                                     <TableCell align="left">
-                                        {row.launch_success ? <Button
-                                            className={classes.success}
-                                            variant="outlined"
-
-                                            onClick={(e) => updateDetails(e, row)}
-                                        >
-                                            Success
-                                        </Button>
-
+                                        {row.launch_success ?
+                                            <Button
+                                                className={classes.success}
+                                                variant="outlined"
+                                                onClick={(e) => updateDetails(e, row)}
+                                            >
+                                                Success
+                                            </Button>
                                             : row.upcoming === false ?
                                                 <Button
                                                     className={classes.failed}
@@ -177,22 +178,15 @@ const BasicTable = ({ launch, loader }) => {
                                                     onClick={(e) => updateDetails(e, row)}
                                                 >
                                                     Failed
-                               </Button>
+                                               </Button>
                                                 :
-
                                                 <Button
                                                     className={classes.upcoming}
                                                     variant="outlined"
-
                                                     onClick={(e) => updateDetails(e, row)}
                                                 >
                                                     Upcomimg
-                                </Button>
-
-
-
-
-
+                                                </Button>
                                         }
 
                                     </TableCell>

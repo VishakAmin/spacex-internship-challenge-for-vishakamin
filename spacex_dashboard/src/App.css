@@ -11,16 +11,16 @@
   padding-top: 112px;
 }
 
-.fp-container {
+.loader-container {
   position: fixed;
-  width: 30%;
-  height: 30%;
   top: 0;
   left: 0;
 }
 
-.fp-container .fp-loader {
-  top: 340px;
+.loader-container .loader {
+  width: 120px;
+  height: 120px;
+  top: 412px;
   left: 620px;
   z-index: 100;
   position: absolute;

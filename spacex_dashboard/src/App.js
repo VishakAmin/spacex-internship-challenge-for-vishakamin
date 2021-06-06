@@ -1,17 +1,54 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Container } from '@material-ui/core';
+import { Box, Container, Typography } from '@material-ui/core';
 import Logo from './img/logo.png'
 import './App.css';
 import BasicTable from './Compenent/BasicTable';
-import { usePagination } from '@material-ui/lab/Pagination';
 import useFullPageLoader from './hooks/usePageLoader';
+import Button from '@material-ui/core/Button';
+import ButtonBase from '@material-ui/core/ButtonBase';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import Grid from '@material-ui/core/Grid'
+import { makeStyles } from '@material-ui/core/styles';
+import Select from '@material-ui/core/Select';
+import filter from "./img/filter.png";
+import down from "./img/down.png";
+
+const useStyles = makeStyles({
+
+  filter: {
+    position: "absolute",
+    // width: "150px",
+    // height: "16px",
+    left: "1056px",
+    top: "120px",
+    fontFamily: "Helvetica Neue",
+    fontStyle: "normal",
+    fontWeight: "500",
+    fontSize: "16px",
+    lineHeight: "16px",
+    textTransform: "none"
+  },
+  menu: {
+
+  }
+
+})
 
 
 function App() {
   const [launches, setLaunches] = useState([]);
+  const [launch_filter, setLaunch_filter] = useState([]);
+
   const [loader, showloader, hideLoader] = useFullPageLoader()
 
+  const [filters, setFilters] = useState([]);
+
+  const classes = useStyles();
+
+  console.log("select", filters)
   useEffect(() => {
+
 
     const getData = () => {
       showloader()
@@ -20,13 +57,22 @@ function App() {
         .then(data => {
           hideLoader()
           setLaunches(data)
+          setLaunch_filter(data)
         })
 
     }
     getData()
   }, [])
 
-  //console.log(launches);
+  const handleChange = (e) => {
+    setFilters(e.target.value)
+    const filter_data = e.target.value === "" ? launches : e.target.value === "success" ? launches.filter(a => a.launch_success === true) : e.target.value === "failure" ? launches.filter(a => a.launch_success === false) : launches.filter(a => a.upcoming === true)
+    setLaunch_filter(filter_data)
+  }
+
+
+
+  console.log(filters);
   return (
     <div className="App">
       <Box
@@ -40,14 +86,35 @@ function App() {
       </Box>
 
 
+      <Grid container direction="row" spacing={1} className={classes.filter}  >
+        <Grid item style={{ paddingTop: "11px" }}>
+          <img src={filter} alt="filter" />
+        </Grid>
+        <Grid item>
+          <Select
+            value={filters}
+            onChange={handleChange}
+            displayEmpty
+            disableUnderline
+          >
+            <MenuItem value="">All Launches</MenuItem>
+            <MenuItem value="success">Successful Launches</MenuItem>
+            <MenuItem value="failure">Failure Launches</MenuItem>
+            <MenuItem value="upcoming">Upcoming Launches</MenuItem>
+          </Select>
+        </Grid>
+      </Grid>
+
+
+
       <Container style={{ paddingTop: "20px" }}>
 
-        <BasicTable launch={launches} loader={loader} />
+        <BasicTable launch={launch_filter} loader={loader} />
 
       </Container>
 
 
-    </div>
+    </div >
   );
 }
 
