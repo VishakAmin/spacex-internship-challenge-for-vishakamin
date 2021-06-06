@@ -50,12 +50,11 @@ function App() {
           setLaunches(data)
           setLaunch_filter(data)
           setIsLoadaing(false)
-
         })
 
     }
     getData()
-  }, [])
+  })
 
   const handleChange = (e) => {
     setFilters(e.target.value)
