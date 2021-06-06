@@ -148,60 +148,64 @@ const BasicTable = ({ launch, loader }) => {
 
                     <TableBody>
                         {loader}
-                        {/* https://codesandbox.io/s/jzbml?file=/src/MyDialog.js */}
-                        {launch
-                            .slice((page - 1) * rowsPerPage, (page - 1) * rowsPerPage + rowsPerPage)
-                            .map((row, index) => (
-                                <TableRow key={index}>
-                                    <TableCell component="th" scope="row" align="center">
-                                        {String((page - 1) * 12 + index + 1).padStart(2, "0")}
+                        {launch ? console.log("Data Exist") : console.log("Data Not Exist")}
 
-                                        {/* {row.flight_number} */}
-                                    </TableCell>
-                                    <TableCell align="left">{moment(row.launch_date_utc).format('DD  MMMM YYYY HH:mm')}</TableCell>
-                                    <TableCell align="left">{row.launch_site.site_name}</TableCell>
-                                    <TableCell align="left">{row.mission_name}</TableCell>
-                                    <TableCell align="left">{row.rocket.second_stage.payloads[0].orbit}</TableCell>
-                                    <TableCell align="left">
-                                        {row.launch_success ?
-                                            <Button
-                                                className={classes.success}
-                                                variant="outlined"
-                                                onClick={(e) => updateDetails(e, row)}
-                                            >
-                                                Success
+                        {
+                            launch
+                                .slice((page - 1) * rowsPerPage, (page - 1) * rowsPerPage + rowsPerPage)
+                                .map((row, index) => (
+                                    <TableRow key={index}>
+                                        <TableCell component="th" scope="row" align="center">
+                                            {String((page - 1) * 12 + index + 1).padStart(2, "0")}
+
+                                            {/* {row.flight_number} */}
+                                        </TableCell>
+                                        <TableCell align="left">{moment(row.launch_date_utc).format('DD  MMMM YYYY HH:mm')}</TableCell>
+                                        <TableCell align="left">{row.launch_site.site_name}</TableCell>
+                                        <TableCell align="left">{row.mission_name}</TableCell>
+                                        <TableCell align="left">{row.rocket.second_stage.payloads[0].orbit}</TableCell>
+                                        <TableCell align="left">
+                                            {row.launch_success ?
+                                                <Button
+                                                    className={classes.success}
+                                                    variant="outlined"
+                                                    onClick={(e) => updateDetails(e, row)}
+                                                >
+                                                    Success
                                             </Button>
-                                            : row.upcoming === false ?
-                                                <Button
-                                                    className={classes.failed}
-                                                    variant="outlined"
-                                                    onClick={(e) => updateDetails(e, row)}
-                                                >
-                                                    Failed
+                                                : row.upcoming === false ?
+                                                    <Button
+                                                        className={classes.failed}
+                                                        variant="outlined"
+                                                        onClick={(e) => updateDetails(e, row)}
+                                                    >
+                                                        Failed
                                                </Button>
-                                                :
-                                                <Button
-                                                    className={classes.upcoming}
-                                                    variant="outlined"
-                                                    onClick={(e) => updateDetails(e, row)}
-                                                >
-                                                    Upcomimg
+                                                    :
+                                                    <Button
+                                                        className={classes.upcoming}
+                                                        variant="outlined"
+                                                        onClick={(e) => updateDetails(e, row)}
+                                                    >
+                                                        Upcomimg
                                                 </Button>
-                                        }
+                                            }
 
-                                    </TableCell>
-                                    <TableCell align="left">{row.rocket.rocket_name}</TableCell>
-                                </TableRow>
+                                        </TableCell>
+                                        <TableCell align="left">{row.rocket.rocket_name}</TableCell>
+                                    </TableRow>
 
 
 
-                            ))}
+                                ))
 
+                        }
                         {emptyRows > 0 && (
                             <TableRow style={{ height: 53 * emptyRows }}>
                                 <TableCell colSpan={6} />
                             </TableRow>
                         )}
+
                     </TableBody>
 
 
