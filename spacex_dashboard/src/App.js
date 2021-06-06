@@ -38,26 +38,14 @@ const useStyles = makeStyles({
 
 function App() {
   const [launches, setLaunches] = useState([]);
+  const [launch_filter, setLaunch_filter] = useState([]);
+
   const [loader, showloader, hideLoader] = useFullPageLoader()
 
-  const [anchorEl, setAnchorEl] = useState(null);
-  const [filters, setFilters] = useState("");
+  const [filters, setFilters] = useState([]);
 
   const classes = useStyles();
 
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-
-  };
-  const handleClose = (event) => {
-    setFilters(event.target.value)
-    setAnchorEl(null);
-  };
-
-
-  const handleChange = (e) => {
-    setFilters(e.target.value)
-  }
   console.log("select", filters)
   useEffect(() => {
 
@@ -69,11 +57,20 @@ function App() {
         .then(data => {
           hideLoader()
           setLaunches(data)
+          setLaunch_filter(data)
         })
 
     }
     getData()
   }, [])
+
+  const handleChange = (e) => {
+    setFilters(e.target.value)
+    const filter_data = e.target.value === "" ? launches : e.target.value === "success" ? launches.filter(a => a.launch_success === true) : e.target.value === "failure" ? launches.filter(a => a.launch_success === false) : launches.filter(a => a.upcoming === true)
+    setLaunch_filter(filter_data)
+  }
+
+
 
   console.log(filters);
   return (
@@ -90,7 +87,7 @@ function App() {
 
 
       <Grid container direction="row" spacing={1} className={classes.filter}  >
-        <Grid item style={{ paddingTop: "12px" }}>
+        <Grid item style={{ paddingTop: "11px" }}>
           <img src={filter} alt="filter" />
         </Grid>
         <Grid item>
@@ -112,7 +109,7 @@ function App() {
 
       <Container style={{ paddingTop: "20px" }}>
 
-        <BasicTable launch={launches} loader={loader} />
+        <BasicTable launch={launch_filter} loader={loader} />
 
       </Container>
 

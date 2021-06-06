@@ -147,7 +147,7 @@ const BasicTable = ({ launch, loader }) => {
                     </TableHead>
 
                     <TableBody>
-
+                        {loader}
                         {/* https://codesandbox.io/s/jzbml?file=/src/MyDialog.js */}
                         {launch
                             .slice((page - 1) * rowsPerPage, (page - 1) * rowsPerPage + rowsPerPage)
