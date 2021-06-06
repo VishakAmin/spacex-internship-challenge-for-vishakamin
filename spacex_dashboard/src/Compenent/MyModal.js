@@ -154,8 +154,9 @@ const MyModal = (
                     keepMounted
                     onClose={handleCloseDialog}
                     aria-labelledby="alert-dialog-slide-title"
-                    className={classes.paper}
-
+                    //className={classes.paper}
+                    maxWidth="xs"
+                    fullWidth
 
 
                 >
@@ -164,7 +165,7 @@ const MyModal = (
                             <Avatar variant="square" src={row.links.mission_patch_small} className={classes.avatar} />
                         </Grid>
 
-                        <Grid item style={{ flex: 5 }} container direction="column" spacing={1}>
+                        <Grid item style={{ flex: 4 }} container direction="column" spacing={1}>
                             <Grid item style={{ display: "flex" }}  >
                                 <Typography className={classes.heading}> {row.mission_name}</Typography>
 
@@ -236,9 +237,9 @@ const MyModal = (
 
                     </Grid>
 
-                    <Grid container >
+                    <Grid container style={{ paddingTop: "16px" }}>
                         <Typography className={classes.deatils}>
-                            {row.details} <a href="www.dadaada" > Wikipedia</a>
+                            {row.details} <a href={row.links.wikipedia} target="_blank" rel="noreferrer"> Wikipedia</a>
                         </Typography>
                     </Grid>
 
@@ -246,9 +247,9 @@ const MyModal = (
 
                     </Grid>
 
-                    <Grid container direction="column" spacing={4}>
+                    <Grid container direction="column" spacing={4} style={{ paddingTop: "32px" }}>
                         <Grid container direction="row" item spacing={2}>
-                            <Grid item md={3}>
+                            <Grid item md={5}>
                                 <Typography className={classes.key}>
                                     Flight Number
                             </Typography>
@@ -262,7 +263,7 @@ const MyModal = (
                         <Divider />
 
                         <Grid container direction="row" item spacing={2}>
-                            <Grid item md={3}>
+                            <Grid item md={5}>
                                 <Typography className={classes.key}>
                                     Mission Name
                             </Typography>
@@ -276,7 +277,7 @@ const MyModal = (
                         <Divider />
 
                         <Grid container direction="row" item spacing={2}>
-                            <Grid item md={3}>
+                            <Grid item md={5}>
                                 <Typography className={classes.key}>
                                     Rocket Type
                             </Typography>
@@ -291,7 +292,7 @@ const MyModal = (
 
 
                         <Grid container direction="row" item spacing={2}>
-                            <Grid item md={3}>
+                            <Grid item md={5}>
                                 <Typography className={classes.key}>
                                     Manufacturer
                             </Typography>
@@ -306,7 +307,7 @@ const MyModal = (
 
 
                         <Grid container direction="row" item spacing={2}>
-                            <Grid item md={3}>
+                            <Grid item md={5}>
                                 <Typography className={classes.key}>
                                     Nationality
                             </Typography>
@@ -321,7 +322,7 @@ const MyModal = (
 
 
                         <Grid container direction="row" item spacing={2}>
-                            <Grid item md={3}>
+                            <Grid item md={5}>
                                 <Typography className={classes.key}>
                                     Launch Date
                             </Typography>
@@ -336,7 +337,7 @@ const MyModal = (
 
 
                         <Grid container direction="row" item spacing={2}>
-                            <Grid item md={3}>
+                            <Grid item md={5}>
                                 <Typography className={classes.key}>
                                     Payload Type
                             </Typography>
@@ -351,7 +352,7 @@ const MyModal = (
 
 
                         <Grid container direction="row" item spacing={2}>
-                            <Grid item md={3}>
+                            <Grid item md={5}>
                                 <Typography className={classes.key}>
                                     Orbit
                             </Typography>
@@ -364,7 +365,7 @@ const MyModal = (
                         </Grid>
                         <Divider />
                         <Grid container direction="row" item spacing={2}>
-                            <Grid item md={3}>
+                            <Grid item md={5}>
                                 <Typography className={classes.key}>
                                     Launch Site
                             </Typography>

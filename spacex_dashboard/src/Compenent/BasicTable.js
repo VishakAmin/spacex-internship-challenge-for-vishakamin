@@ -154,7 +154,9 @@ const BasicTable = ({ launch, loader }) => {
                             .map((row, index) => (
                                 <TableRow key={index}>
                                     <TableCell component="th" scope="row" align="center">
-                                        {row.flight_number}
+                                        {String((page - 1) * 12 + index + 1).padStart(2, "0")}
+
+                                        {/* {row.flight_number} */}
                                     </TableCell>
                                     <TableCell align="left">{moment(row.launch_date_utc).format('DD  MMMM YYYY HH:mm')}</TableCell>
                                     <TableCell align="left">{row.launch_site.site_name}</TableCell>
