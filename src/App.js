@@ -31,17 +31,12 @@ const useStyles = makeStyles({
 function App() {
   const [launches, setLaunches] = useState([]);
   const [launch_filter, setLaunch_filter] = useState([]);
-
   const [loader, showloader, hideLoader] = useFullPageLoader()
-
   const [filters, setFilters] = useState([]);
-
   const classes = useStyles();
 
-  console.log("select", filters)
+  //Api call
   useEffect(() => {
-
-
     const getData = () => {
       showloader()
       fetch("https://api.spacexdata.com/v3/launches")
