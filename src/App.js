@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Container, Typography } from '@material-ui/core';
+import { Box, Container } from '@material-ui/core';
 import Logo from './img/logo.png'
 import './App.css';
 import BasicTable from './Compenent/BasicTable';
@@ -34,10 +34,14 @@ function App() {
   const [loader, showloader, hideLoader] = useFullPageLoader()
   const [filters, setFilters] = useState([]);
   const classes = useStyles();
+  const [isLoading, setIsLoadaing] = useState(false)
+
+
 
   //Api call
   useEffect(() => {
     const getData = () => {
+      setIsLoadaing(true)
       showloader()
       fetch("https://api.spacexdata.com/v3/launches")
         .then(response => response.json())
@@ -45,6 +49,8 @@ function App() {
           hideLoader()
           setLaunches(data)
           setLaunch_filter(data)
+          setIsLoadaing(false)
+
         })
 
     }
@@ -96,7 +102,7 @@ function App() {
 
       <Container style={{ paddingTop: "20px" }}>
 
-        <BasicTable launch={launch_filter} loader={loader} />
+        <BasicTable launch={launch_filter} loader={loader} Loading={isLoading} />
 
       </Container>
 
