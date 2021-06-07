@@ -14,7 +14,7 @@ const useStyles = makeStyles({
 
   filter: {
     position: "absolute",
-    left: "1056px",
+    paddingLeft: "1056px",
     top: "120px",
   },
 
@@ -50,7 +50,6 @@ function App() {
           setLaunches(data)
           setLaunch_filter(data)
           setIsLoadaing(false)
-
         })
 
     }
@@ -63,9 +62,6 @@ function App() {
     setLaunch_filter(filter_data)
   }
 
-
-
-  console.log(filters);
   return (
     <div className="App">
       <Box

@@ -131,14 +131,14 @@ const MyModal = (
     const classes = useStyles()
 
 
-    const handleClickOpen = () => {
-        handleOpenDialog();
-        // handleOpenDialog(true)
-        // setOpen(true);
-    };
+    // const handleClickOpen = () => {
+    //     handleOpenDialog();
+    //     // handleOpenDialog(true)
+    //     // setOpen(true);
+    // };
 
 
-    console.log(row)
+    // console.log(row)
     return (
         <div>
             {row.links ?
