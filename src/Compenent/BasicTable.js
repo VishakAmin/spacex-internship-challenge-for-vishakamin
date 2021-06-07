@@ -98,6 +98,7 @@ const BasicTable = ({ launch, loader, Loading }) => {
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage)
+
     };
 
 
