@@ -138,7 +138,7 @@ const MyModal = (
     // };
 
 
-    console.log(row)
+    // console.log(row)
     return (
         <div>
             {row.links ?

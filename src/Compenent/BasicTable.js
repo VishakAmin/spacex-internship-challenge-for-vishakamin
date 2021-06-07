@@ -94,14 +94,14 @@ const BasicTable = ({ launch, loader, Loading }) => {
 
     var totalpages = parseInt(launch.length / rowsPerPage)
 
-    const yo = launch.length % rowsPerPage > 0 ? totalpages + 1 : totalpages
+    const calc_pages = launch.length % rowsPerPage > 0 ? totalpages + 1 : totalpages
 
     const handleChangePage = (event, newPage) => {
-        setPage(newPage);
-        console.log(page)
+        setPage(newPage)
     };
 
 
+    // console.log("Pagination Page", page, yo)
 
     const handleOpenDialog = () => {
         setOpenDialog(true);
@@ -116,7 +116,9 @@ const BasicTable = ({ launch, loader, Loading }) => {
         setRowToUpdate(row);
     };
 
-    console.log(Loading, launch.length)
+
+    // console.log(Loading)
+
 
     return (
         <Box className={classes.box} pt="112px" pl="245px" pr="245px" pb="164px">
@@ -140,8 +142,6 @@ const BasicTable = ({ launch, loader, Loading }) => {
                     </TableHead>
 
                     <TableBody>
-
-
                         {Loading ?
                             <>
                                 {loader}
@@ -216,13 +216,12 @@ const BasicTable = ({ launch, loader, Loading }) => {
             </TableContainer>
             <TableFooter >
                 <Pagination
-                    // count={10}
                     siblingCount={0}
                     boundaryCount={1}
                     variant="outlined"
                     shape="rounded"
                     component="div"
-                    count={yo}
+                    count={calc_pages}
                     rowsPerPage={rowsPerPage}
                     page={page}
                     defaultPage={1}
